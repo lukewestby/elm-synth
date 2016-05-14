@@ -1,7 +1,7 @@
-module Waveform
-  ( Waveform(Sawtooth, Square, Sine)
+module Waveform exposing
+  ( Waveform(..)
   , toString
-  ) where
+  )
 
 import String
 

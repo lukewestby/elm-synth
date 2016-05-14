@@ -11,6 +11,7 @@ Check out https://lukewestby.github.io/elm-synth
 - [ ] Write tests
 - [ ] Actually style the thing
 - [ ] Implement LFO on filter using Elm's time-related signals
+- [ ] Implement ADSR
 - [ ] Add an electron build
 - [ ] Polyphony? Gain? More features!
 
