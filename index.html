@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Elm Synth</title>
+  </head>
+  <body>
+    <a href="https://github.com/lukewestby/elm-synth"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    <script src="build/main.js"></script>
+    <script>
+      var app = Elm.Main.fullscreen()
+
+      var audioContext = new AudioContext()
+      var filter = audioContext.createBiquadFilter()
+      filter.connect(audioContext.destination)
+      var oscillator = null
+
+      function start(type, frequency) {
+        oscillator && oscillator.stop(0)
+        oscillator = audioContext.createOscillator()
+        oscillator.type = type
+        oscillator.frequency.value = frequency
+        oscillator.connect(filter)
+        oscillator.start(0)
+      }
+
+      function setFilter(filterType, filterPct) {
+        // It's important to do a power or log scale here instead of linear or
+        // else things get real aggressive real quick
+        var fraction = filterPct / 100
+        var min = 120
+        var filterFreq = Math.pow((audioContext.sampleRate / 2 - min), fraction) + min
+        filter.type = filterType
+        filter.frequency.value = filterFreq
+      }
+
+      function stop() {
+        oscillator && oscillator.stop(0)
+        oscillator = null
+      }
+
+      app.ports.startRaw.subscribe(function (args) {
+        var type = args[0];
+        var frequency = args[1];
+        start(type, frequency);
+      });
+
+      app.ports.stopRaw.subscribe(function () {
+        stop();
+      });
+
+      app.ports.setFilterRaw.subscribe(function (args) {
+        var filterType = args[0];
+        var filterPct = args[1];
+        setFilter(filterType, filterPct);
+      });
+    </script>
+  </body>
+</html>

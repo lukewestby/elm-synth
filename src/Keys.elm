@@ -1,10 +1,8 @@
-module Keys (currentKey, toFrequency, Key) where
+module Keys exposing (toFrequency, fromKeyCode, Key)
 
 import Dict exposing (Dict)
-import Char exposing (KeyCode)
+import Keyboard exposing (KeyCode)
 import Maybe exposing (Maybe)
-import Keyboard
-import Set exposing (Set)
 
 type Key
   = C3 | CS3 | D3 | DS3 | E3 | F3 | FS3 | G3 | GS3 | A3 | AS3 | B3
@@ -55,20 +53,3 @@ toFrequency key =
     C4 -> 261.63
     CS4 -> 277.18
     D4 -> 293.67
-
-
-mapSignals : (Set KeyCode) -> KeyCode -> Maybe Key
-mapSignals keysDown lastPressed =
-  let
-    adjusted = lastPressed - 32
-  in
-    if Set.member adjusted keysDown then
-      fromKeyCode adjusted
-    else
-      Nothing
-
-
-currentKey : Signal (Maybe Key)
-currentKey =
-  Signal.map2 mapSignals Keyboard.keysDown Keyboard.presses
-    |> Signal.dropRepeats

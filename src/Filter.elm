@@ -1,7 +1,7 @@
-module Filter
-  ( Filter(Lowpass, Highpass)
+module Filter exposing
+  ( Filter(..)
   , toString
-  ) where
+  )
 
 import String
 
