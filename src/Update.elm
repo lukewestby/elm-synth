@@ -20,35 +20,41 @@ initialize =
     Cmd.none
 
 
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         NoOp ->
-            (model, Cmd.none)
+            ( model, Cmd.none )
+
         KeyChange maybeKey ->
             case maybeKey of
                 Nothing ->
                     ( { model | currentKey = maybeKey }
                     , Cmds.stop
                     )
+
                 Just key ->
                     ( { model | currentKey = maybeKey }
                     , Cmds.start model.oscillatorType key
                     )
+
         OscillatorChange waveform ->
-        case model.currentKey of
-            Nothing ->
-                ( { model | oscillatorType = waveform }
-                , Cmd.none
-                )
-            Just key ->
-                ( { model | oscillatorType = waveform }
-                , Cmds.start waveform key
-                )
+            case model.currentKey of
+                Nothing ->
+                    ( { model | oscillatorType = waveform }
+                    , Cmd.none
+                    )
+
+                Just key ->
+                    ( { model | oscillatorType = waveform }
+                    , Cmds.start waveform key
+                    )
+
         FilterFrequencyChange value ->
             ( { model | filterFrequency = value }
             , Cmds.setFilter model.filterType value
             )
+
         FilterTypeChange filterType ->
             ( { model | filterType = filterType }
             , Cmds.setFilter filterType model.filterFrequency

@@ -5,6 +5,7 @@ import Keys exposing (Key)
 import Keyboard
 import Update exposing (Msg(..))
 
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
@@ -24,6 +25,7 @@ downs maybeKey =
     in
         Keyboard.downs (onKeyDown maybeKey)
 
+
 ups : Maybe Key -> Sub Msg
 ups maybeKey =
     let
@@ -36,5 +38,6 @@ ups maybeKey =
         case maybeKey of
             Nothing ->
                 Sub.none
+
             Just key ->
                 Keyboard.ups (onKeyUp key)
