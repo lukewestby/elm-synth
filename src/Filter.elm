@@ -1,16 +1,18 @@
-module Filter exposing
-  ( Filter(..)
-  , toString
-  )
+module Filter
+    exposing
+        ( Filter(..)
+        , toString
+        )
 
 import String
 
+
 type Filter
-  = Lowpass
-  | Highpass
+    = Lowpass
+    | Highpass
 
 
 toString : Filter -> String
 toString filter =
-  Basics.toString filter
-    |> String.toLower
+    Basics.toString filter
+        |> String.toLower

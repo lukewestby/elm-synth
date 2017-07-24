@@ -6,17 +6,17 @@ import Keys exposing (Key)
 
 
 type alias Model =
-  { oscillatorType: Waveform
-  , filterFrequency: Int
-  , filterType: Filter
-  , currentKey: Maybe Key
-  }
+    { oscillatorType : Waveform
+    , filterFrequency : Int
+    , filterType : Filter
+    , currentKey : Maybe Key
+    }
 
 
 model : Model
 model =
-  { oscillatorType = Sawtooth
-  , filterFrequency = 50
-  , filterType = Lowpass
-  , currentKey = Nothing
-  }
+    { oscillatorType = Sawtooth
+    , filterFrequency = 50
+    , filterType = Lowpass
+    , currentKey = Nothing
+    }

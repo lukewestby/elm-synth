@@ -4,11 +4,14 @@ import Waveform exposing (Waveform)
 import Keys exposing (Key)
 import Filter exposing (Filter)
 
-port startRaw : (String, Float) -> Cmd msg
+
+port startRaw : ( String, Float ) -> Cmd msg
+
 
 port stopRaw : () -> Cmd msg
 
-port setFilterRaw : (String, Int) -> Cmd msg
+
+port setFilterRaw : ( String, Int ) -> Cmd msg
 
 
 start : Waveform -> Key -> Cmd msg
